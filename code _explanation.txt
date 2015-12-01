@@ -1,4 +1,7 @@
-	In phase1.rb the goal of the code was to make a certain number of machines running the whole time from start to finish to get data about how much each factor (cost vs. delay) would contribute to the total score. The results were as follows:
+	In phase1.rb the goal of the code was to make a certain number of machines
+	running the whole time from start to finish to get data about how much
+	each factor (cost vs. delay) would contribute to the total score. The
+	results were as follows:
 
 ----------- 1 Machine* -----------
 Time Score: 49 (Total delay: 40,679 turns)
@@ -25,13 +28,21 @@ Time Score: 100 (Total delay: 0 turns)
 Cost Score: -17 (Total cost: $2280)
 Total Score: 83
 
-	These results showed me that the cost score was more important because a delay of ~4,000 turns only cost 4 points. In phase2, the goal was to get a high score by keeping the cost down. Since each machine costs $1/turn, to get the cost down you want to:
+	These results showed me that the cost score was more important because a
+	delay of ~4,000 turns only cost 4 points. In phase2, the goal was to get a
+	high score by keeping the cost down. Since each machine costs $1/turn, to
+	get the cost down you want to:
 
 	1.) Assign jobs to a single machine until its memory is full.
 	2.) Create new machines when there are unassigned jobs remaining.
 	3.) Delete machines that have no jobs.
 
-	If a new job requires 64GB and 1 turn to be completed, adding it to a machine's queue will still cost you $1 when it is brought out of the queue and completed. In this case it is much better to create a new machine and complete the job ASAP since the cost will still be the same, but you will have less delay. For this reason you don't want to go over 64GB per machine. When I ran the short game under these ideas the results were:
+	If a new job requires 64GB and 1 turn to be completed, adding it to a
+	machine's queue will still cost you $1 when it is brought out of the queue
+	and completed. In this case it is much better to create a new machine and
+	complete the job ASAP since the cost will still be the same, but you will
+	have less delay. For this reason you don't want to go over 64GB per
+	machine. When I ran the short game under these ideas the results were:
 
 Time Score: 100.0 (Total delay: 0 turns)
 Cost Score: 98.0 (Total cost: $427)
@@ -43,27 +54,45 @@ Time Score: 100.0 (Total delay: 0 turns)
 Cost Score: 98.0 (Total cost: $6131)
 Total Score: 198.0
 
-	I reasoned that it could be possible to get a higher score by queuing a new job when it has a high number of turns for completion. For example, if you have one machine running two jobs:
+	I reasoned that it could be possible to get a higher score by queuing a
+	new job when it has a high number of turns for completion. For example, if
+	you have one machine running two jobs:
 
 	1.) 50GB memory and 20 turns
 	2.) 14GB memory and 2 turns
 
-	And you're at the end of the game and 1 last new job is to be assigned: < 14GB and 18 turns. In this situation, if you create a new machine you will have 2 machines running for the last 18 turns. However, if you queue the job to the machine you already have, only 1 machine will run for the last 18 turns. You save $18! I added in a section of code to allow each current machine to queue a job  if it would have the memory available for the job in a number of turns less than the new job turns. When I ran the short game several times modifiying how many jobs I would allow to be delayed I got some paradoxical results:
+	And you're at the end of the game and 1 last new job is to be assigned: <
+	14GB and 18 turns. In this situation, if you create a new machine you will
+	have 2 machines running for the last 18 turns. However, if you queue the
+	job to the machine you already have, only 1 machine will run for the last
+	18 turns. You save $18! I added in a section of code to allow each current
+	machine to queue a job  if it would have the memory available for the job
+	in a number of turns less than the new job turns. When I ran the short
+	game several times modifiying how many jobs I would allow to be delayed I
+	got some paradoxical results:
 
 Time Score: 99 (Total delay: 1017 turns)
 Time Score: 99 (Total delay: 537 turns)
 Time Score: 100 (Total delay: 543 turns)
 
-	I realized that the delay score wasn't entirely based on the amount of turns, but also possibly on the maximum number of jobs queued. I decided to allow each machine a maximum of 1 job queued only if it would have the memory available for the job on the next turn to minimize the maximum delay as much as possible. When I ran the short game under these conditions the results were:
+	I realized that the delay score wasn't entirely based on the amount of
+	turns, but also possibly on the maximum number of jobs queued. I decided
+	to allow each machine a maximum of 1 job queued only if it would have the
+	memory available for the job on the next turn to minimize the maximum
+	delay as much as possible. When I ran the short game under these
+	conditions the results were:
 
 Time Score: 100.0 (Total delay: 543 turns)
 Cost Score: 98.0 (Total cost: $427)
 Total Score: 198.0
 
-	I was sad when I didn't get a personal high score. The cost benefit didn't materialize. Either way, I decided to put the new code to the test against the long game. The results were:
+	I was sad when I didn't get a personal high score. The cost benefit didn't
+	materialize. Either way, I decided to put the new code to the test against
+	the long game. The results were:
 
 Time Score: 100.0 (Total delay: 44899 turns)
 Cost Score: 100.0 (Total cost: $5877)
 Total Score: 200.0
 
-	I was happy and shocked when the results came in. I had saved money ($254) and a delay of ~45,000 didn't cost me any points!
+	I was happy and shocked when the results came in. I had saved money ($254)
+	and a delay of ~45,000 didn't cost me any points!

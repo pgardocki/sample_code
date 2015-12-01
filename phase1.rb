@@ -44,7 +44,11 @@ status = turn['status']
 jobs_found = turn['jobs'].count
 
 while (status != 'completed')
-  puts "On turn #{turn['current_turn']}, got #{turn['jobs'].count} jobs, having completed #{turn['jobs_completed']} of #{jobs_found} with #{turn['jobs_running']} jobs running, #{turn['jobs_queued']} jobs queued, and #{turn['machines_running']} machines running"
+  
+  puts "On turn #{turn['current_turn']}, got #{turn['jobs'].count} jobs,
+  having completed #{turn['jobs_completed']} of #{jobs_found} with
+  #{turn['jobs_running']} jobs running, #{turn['jobs_queued']} jobs queued,
+  and #{turn['machines_running']} machines running"
 
   job_ids = turn['jobs'].map { |job| job['id'] }
   new_jobs = job_ids.count
